@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/docker-ready-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/r/agentswarm/agentswarm)
-[![GitHub Stars](https://img.shields.io/github/stars/raynr7/agentswarm?style=social)](https://github.com/raynr7/agentswarm)
+[![GitHub Stars](https://img.shields.io/github/stars/raynr7/agentswarp?style=social)](https://github.com/raynr7/agentswarp)
 [![Discord](https://img.shields.io/badge/Discord-Join%20us-5865F2?logo=discord&logoColor=white)](https://discord.gg/agentswarm)
 
 > Self-hosted no-code automation builder, designed to run on low RAM.
@@ -93,7 +93,7 @@ Default: **Ollama with phi3:mini** - completely free, runs locally, no API key n
 | Twitter / X | Post and monitor | Ready |
 | Telegram | Bot messages | Ready |
 
-Don't see yours? Build a custom integration with our HTTP block or [open a request](https://github.com/raynr7/agentswarm/issues/new).
+Don't see yours? Build a custom integration with our HTTP block or [open a request](https://github.com/raynr7/agentswarp/issues/new).
 
 ---
 
@@ -167,7 +167,7 @@ bun dev
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide, code style, and PR process.
 
-Look for issues tagged [good first issue](https://github.com/raynr7/agentswarm/labels/good%20first%20issue) to get started.
+Look for issues tagged [good first issue](https://github.com/raynr7/agentswarp/labels/good%20first%20issue) to get started.
 
 ---
 
