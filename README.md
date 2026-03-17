@@ -32,8 +32,8 @@ Open [http://localhost:3000](http://localhost:3000) and start building agents.
 ### Docker Compose
 
 ```bash
-git clone https://github.com/raynr7/agentswarm.git
-cd agentswarm
+git clone https://github.com/raynr7/agentswarp.git
+cd agentswarp
 cp .env.example .env
 docker compose up -d
 ```
@@ -41,8 +41,8 @@ docker compose up -d
 ### From Source
 
 ```bash
-git clone https://github.com/raynr7/agentswarm.git
-cd agentswarm
+git clone https://github.com/raynr7/agentswarp.git
+cd agentswarp
 bun install
 bun dev
 ```
@@ -155,8 +155,8 @@ We love contributions! AgentSwarp is built by the community, for the community.
 
 ```bash
 # 1. Fork and clone
-git clone https://github.com/YOUR_USERNAME/agentswarm.git
-cd agentswarm
+git clone https://github.com/raynr7/agentswarp.git
+cd agentswarp
 
 # 2. Install dependencies
 bun install
