@@ -1,11 +1,12 @@
 {
-  "name": "web",
-  "version": "0.1.0",
+  "name": "agent-swarp",
+  "version": "4.2.0",
+  "description": "Open-source autonomous AI agent studio",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 6969",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 6969",
     "lint": "eslint"
   },
   "dependencies": {

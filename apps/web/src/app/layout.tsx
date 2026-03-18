@@ -5,29 +5,30 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
   LayoutDashboard, Bot, Wrench, Workflow, Brain, Settings, Terminal,
-  Globe, ChevronRight, Zap, BookOpen, PlugZap, LogOut, Code2,
-  Palette, Key, ChevronDown
+  Globe, ChevronRight, Zap, BookOpen, PlugZap, LogOut,
+  Palette, Key, ChevronDown, Users, Plus
 } from 'lucide-react';
 import './globals.css';
 
-const MODES = ['✦ Agent', '🌐 Website Builder', '< / > Code'];
+const MODES = ['Agent', 'Website Builder', 'Code'];
 
 const NAV = [
-  { label: 'Home',      href: '/',            icon: LayoutDashboard },
-  { label: 'Studio',    href: '/studio',      icon: Bot },
-  { label: 'Tools',     href: '/tools',       icon: Wrench },
-  { label: 'Workflows', href: '/workflows',   icon: Workflow },
-  { label: 'Browser',   href: '/browser',     icon: Globe },
-  { label: 'Memory',    href: '/memory',      icon: Brain },
-  { label: 'Terminal',  href: '/terminal',    icon: Terminal },
+  { label: 'Home',        href: '/',             icon: LayoutDashboard },
+  { label: 'Studio',      href: '/studio',       icon: Bot },
+  { label: 'Agents',      href: '/agents',       icon: Users },
+  { label: 'Tools',       href: '/tools',        icon: Wrench },
+  { label: 'Workflows',   href: '/workflows',    icon: Workflow },
+  { label: 'Browser',     href: '/browser',      icon: Globe },
+  { label: 'Memory',      href: '/memory',       icon: Brain },
+  { label: 'Terminal',    href: '/terminal',     icon: Terminal },
 ];
 
 const BOTTOM_NAV = [
-  { label: 'API Keys',      href: '/api',          icon: Key },
-  { label: 'Integrations',  href: '/integrations', icon: PlugZap },
-  { label: 'Themes',        href: '/themes',       icon: Palette },
-  { label: 'Docs',          href: '/docs',         icon: BookOpen },
-  { label: 'Settings',      href: '/settings',     icon: Settings },
+  { label: 'API Keys',      href: '/api',           icon: Key },
+  { label: 'Integrations',  href: '/integrations',  icon: PlugZap },
+  { label: 'Themes',        href: '/themes',        icon: Palette },
+  { label: 'Docs',          href: '/docs',          icon: BookOpen },
+  { label: 'Settings',      href: '/settings',      icon: Settings },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -38,7 +39,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   if (pathname === '/login') {
     return (
       <html lang="en">
-        <head><title>AgentSwarp — Login</title></head>
+        <head>
+          <title>Agent Swarp — Login</title>
+          <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        </head>
         <body>{children}</body>
       </html>
     );
@@ -47,8 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <title>AgentSwarp — Autonomous Studio</title>
-        <meta name="description" content="Build, deploy, and orchestrate autonomous AI agents." />
+        <title>Agent Swarp — Autonomous Studio</title>
+        <meta name="description" content="Open-source autonomous AI agent framework. Build, deploy, and orchestrate intelligent agents." />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
       </head>
       <body>
@@ -57,27 +62,41 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <aside className="sidebar">
             {/* Brand */}
             <div style={{ padding: '12px 14px 10px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 9 }}>
-              <div style={{ width: 30, height: 30, borderRadius: 8, background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 16px rgba(124,58,237,0.4)' }}>
-                <Zap size={14} color="#fff" />
+              <div style={{ width: 28, height: 28, borderRadius: 7, background: 'linear-gradient(135deg,#7c3aed,#4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 12px rgba(124,58,237,0.35)' }}>
+                {/* Swarm icon inline */}
+                <svg width="16" height="16" viewBox="0 0 32 32" fill="none">
+                  <circle cx="9"  cy="16" r="3" fill="#a78bfa"/>
+                  <circle cx="17" cy="8"  r="3" fill="#818cf8"/>
+                  <circle cx="23" cy="16" r="3" fill="#a78bfa"/>
+                  <circle cx="17" cy="24" r="3" fill="#818cf8"/>
+                  <circle cx="16" cy="16" r="2" fill="#fff"/>
+                  <line x1="9"  y1="16" x2="16" y2="16" stroke="#a78bfa" strokeWidth="1.4" strokeOpacity=".8"/>
+                  <line x1="17" y1="8"  x2="16" y2="16" stroke="#818cf8" strokeWidth="1.4" strokeOpacity=".8"/>
+                  <line x1="23" y1="16" x2="16" y2="16" stroke="#a78bfa" strokeWidth="1.4" strokeOpacity=".8"/>
+                  <line x1="17" y1="24" x2="16" y2="16" stroke="#818cf8" strokeWidth="1.4" strokeOpacity=".8"/>
+                </svg>
               </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 700, fontSize: 13, color: 'var(--text)', background: 'linear-gradient(90deg,#a78bfa,#818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>AgentSwarp</div>
-                <div style={{ fontSize: 10, color: 'var(--text-subtle)', lineHeight: 1 }}>Autonomous Studio</div>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: 13, letterSpacing: '-0.01em' }}>Agent Swarp</div>
+                <div style={{ fontSize: 10, color: 'var(--text-subtle)' }}>Open-source · autonomous</div>
               </div>
             </div>
 
             {/* Mode switcher */}
-            <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--border)' }}>
+            <div style={{ padding: '7px 9px', borderBottom: '1px solid var(--border)', position: 'relative' }}>
               <button onClick={() => setShowModes(p => !p)}
-                style={{ width: '100%', background: 'var(--bg-elevated)', border: '1px solid var(--border-strong)', borderRadius: 7, padding: '6px 10px', color: 'var(--text-muted)', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: 'inherit' }}>
-                <span>{MODES[mode]}</span>
-                <ChevronDown size={12} />
+                style={{ width: '100%', background: 'var(--bg-elevated)', border: '1px solid var(--border-strong)', borderRadius: 6, padding: '5px 10px', color: 'var(--text-muted)', fontSize: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: 'inherit' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  {mode === 0 ? <Bot size={11} /> : mode === 1 ? <Globe size={11} /> : <Wrench size={11} />}
+                  {MODES[mode]}
+                </span>
+                <ChevronDown size={11} />
               </button>
               {showModes && (
-                <div style={{ marginTop: 4, background: 'var(--bg-elevated)', border: '1px solid var(--border-strong)', borderRadius: 7, overflow: 'hidden' }}>
+                <div style={{ position: 'absolute', left: 9, right: 9, top: '100%', marginTop: 2, background: 'var(--bg-elevated)', border: '1px solid var(--border-strong)', borderRadius: 6, overflow: 'hidden', zIndex: 50 }}>
                   {MODES.map((m, i) => (
                     <button key={m} onClick={() => { setMode(i); setShowModes(false); }}
-                      style={{ width: '100%', background: i === mode ? 'rgba(124,58,237,0.15)' : 'none', border: 'none', padding: '7px 12px', color: i === mode ? 'var(--accent-light)' : 'var(--text-muted)', fontSize: 12, textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit' }}>
+                      style={{ width: '100%', background: i === mode ? 'rgba(124,58,237,0.12)' : 'none', border: 'none', padding: '7px 12px', color: i === mode ? 'var(--accent-light)' : 'var(--text-muted)', fontSize: 12, textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit' }}>
                       {m}
                     </button>
                   ))}
@@ -93,13 +112,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <div className={`nav-item ${pathname === href || (href !== '/' && pathname.startsWith(href)) ? 'active' : ''}`}>
                     <Icon size={14} />
                     {label}
+                    {href === '/agents' && (
+                      <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 14, height: 14, borderRadius: 3, background: 'rgba(124,58,237,0.2)' }}>
+                        <Plus size={9} color="var(--accent-light)" />
+                      </div>
+                    )}
                   </div>
                 </Link>
               ))}
             </div>
 
             {/* Bottom nav */}
-            <div style={{ borderTop: '1px solid var(--border)', padding: '6px 0' }}>
+            <div style={{ borderTop: '1px solid var(--border)', padding: '5px 0 6px' }}>
               <div className="nav-section">Config</div>
               {BOTTOM_NAV.map(({ label, href, icon: Icon }) => (
                 <Link key={href} href={href}>
@@ -110,7 +134,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
               ))}
               <Link href="/login">
-                <div className="nav-item" style={{ marginTop: 4 }}>
+                <div className="nav-item" style={{ marginTop: 3, color: 'var(--text-subtle)' }}>
                   <LogOut size={14} />
                   Sign out
                 </div>
@@ -122,24 +146,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="main-area">
             {/* Top bar */}
             <div className="top-bar">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--text-subtle)', fontSize: 12 }}>
-                <span style={{ color: 'var(--accent-light)', fontWeight: 600 }}>AgentSwarp</span>
-                <ChevronRight size={11} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12 }}>
+                <span style={{ color: 'var(--text-subtle)' }}>Agent Swarp</span>
+                <ChevronRight size={11} color="var(--text-subtle)" />
                 <span style={{ color: 'var(--text-muted)' }}>
                   {pathname === '/' ? 'Home' : pathname.replace('/', '').charAt(0).toUpperCase() + pathname.replace('/', '').slice(1)}
                 </span>
               </div>
               <div style={{ flex: 1 }} />
-              <span style={{ fontSize: 11, color: 'var(--text-subtle)', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 4, padding: '2px 7px', fontFamily: 'monospace' }}>
-                {MODES[mode]}
-              </span>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginLeft: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 11, color: 'var(--text-subtle)', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 4, padding: '2px 7px', fontFamily: 'monospace' }}>:{' '}6969</span>
                 <span className="dot dot-green" />
                 <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Online</span>
               </div>
             </div>
 
-            {/* Page content */}
+            {/* Page */}
             <div className="page-content">
               {children}
             </div>
