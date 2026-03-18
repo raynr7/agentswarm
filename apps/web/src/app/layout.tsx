@@ -7,10 +7,7 @@ import {
   LayoutDashboard, Bot, Wrench, Workflow, Brain, Settings, Terminal,
   Globe, ChevronRight, Zap, BookOpen, PlugZap, LogOut
 } from 'lucide-react';
-import '../globals.css';
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
+import './globals.css';
 
 const NAV = [
   { label: 'Home',      href: '/',          icon: LayoutDashboard },
