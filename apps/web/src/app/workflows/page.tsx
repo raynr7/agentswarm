@@ -42,9 +42,9 @@ export default function WorkflowsPage() {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <div>
           <h1 style={{ fontSize: 18, fontWeight: 600, marginBottom: 2 }}>
-            <Workflow size={16} style={{ display: 'inline', marginRight: 8 }} />Visual Workflows
+            <Workflow size={16} style={{ display: 'inline', marginRight: 8 }} />Visual Flow Engine
           </h1>
-          <p style={{ color: 'var(--text-muted)', fontSize: 12 }}>n8n-style visual engine for chaining agents and tools.</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 12 }}>Visual system for chaining agents and tools into automated pipelines.</p>
         </div>
         <div style={{ display:'flex', gap: 8 }}>
           <button className="btn btn-secondary btn-sm"><Play size={12} /> Test Run</button>

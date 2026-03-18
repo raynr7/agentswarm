@@ -44,7 +44,7 @@ export default function HomePage() {
       <section className="fade-up" style={{ textAlign: 'center', marginBottom: 60, marginTop: 20 }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '4px 12px', borderRadius: 99, background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.2)', color: 'var(--accent-light)', fontSize: 12, fontWeight: 500, marginBottom: 20 }}>
           <Sparkles size={12} />
-          Agent Swarp v4.2 · The Professional Autonomous Engine
+          Agent Swarp v0.3.7 · The Professional Autonomous Engine
         </div>
         <h1 style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 20, background: 'linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.6))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
           One Engine.<br />Infinite Autonomy.

@@ -155,7 +155,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <div style={{ flex: 1 }} />
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: 11, color: 'var(--text-subtle)', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 4, padding: '2px 7px', fontFamily: 'monospace' }}>:{' '}6969</span>
+                <span style={{ fontSize: 11, color: 'var(--text-subtle)', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 4, padding: '2px 7px', fontFamily: 'monospace' }}>:{' '}9989</span>
                 <span className="dot dot-green" />
                 <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Online</span>
               </div>
