@@ -55,7 +55,7 @@ const TOOLS: Tool[] = [
   { name:'Short-term Store','desc':'Store key-value data for the current session',        cat:'Memory', badge:'Built-in' },
   { name:'Long-term KV',    desc:'Persist data across agent runs',                        cat:'Memory', badge:'Built-in' },
   { name:'Vector Search',   desc:'Semantic search over stored embeddings',               cat:'Memory', badge:'Built-in' },
-  { name:'Remember Fact',   desc:'Commit a fact to the agent''s long-term memory',       cat:'Memory' },
+  { name:'Remember Fact',   desc:"Commit a fact to the agent's long-term memory",       cat:'Memory' },
   { name:'Forget',          desc:'Remove specific memories or keys',                      cat:'Memory' },
   { name:'Memory Recap',    desc:'Summarize and compress older memories',                cat:'Memory' },
 
