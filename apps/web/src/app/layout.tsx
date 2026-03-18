@@ -1,33 +1,124 @@
-import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
-import "./globals.css";
-import React from 'react';
+'use client';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
+import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import {
+  LayoutDashboard, Bot, Wrench, Workflow, Brain, Settings, Terminal,
+  Globe, ChevronRight, Zap, BookOpen, PlugZap, LogOut
+} from 'lucide-react';
+import '../globals.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 
-export const metadata: Metadata = {
-  title: "AgentSwarp | Autonomous Engine",
-  description: "The next generation true-autonomy swarm engine. Build, deploy, and scale intelligent AI agents effortlessly.",
-};
+const NAV = [
+  { label: 'Home',      href: '/',          icon: LayoutDashboard },
+  { label: 'Studio',    href: '/studio',    icon: Bot },
+  { label: 'Tools',     href: '/tools',     icon: Wrench },
+  { label: 'Workflows', href: '/workflows', icon: Workflow },
+  { label: 'Browser',   href: '/browser',   icon: Globe },
+  { label: 'Memory',    href: '/memory',    icon: Brain },
+  { label: 'Terminal',  href: '/terminal',  icon: Terminal },
+];
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const BOTTOM_NAV = [
+  { label: 'Integrations', href: '/integrations', icon: PlugZap },
+  { label: 'Docs',         href: '/docs',         icon: BookOpen },
+  { label: 'Settings',     href: '/settings',     icon: Settings },
+];
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isLogin = pathname === '/login';
+
+  if (isLogin) {
+    return (
+      <html lang="en">
+        <head><title>AgentSwarp</title></head>
+        <body>{children}</body>
+      </html>
+    );
+  }
+
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} ${space.variable} antialiased bg-app text-white min-h-screen relative overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200`}>
-        {/* Extreme UI: Background Noise Texture */}
-        <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.03] mix-blend-overlay" style={{backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.85\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E')"}}></div>
-        
-        {/* Ambient Aurora Glows */}
-        <div className="pointer-events-none fixed -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-indigo-600/10 blur-[120px] mix-blend-screen" />
-        <div className="pointer-events-none fixed top-[40%] -right-[10%] w-[40vw] h-[40vw] rounded-full bg-cyan-500/10 blur-[120px] mix-blend-screen" />
+    <html lang="en">
+      <head>
+        <title>AgentSwarp — Autonomous Studio</title>
+        <meta name="description" content="Build, deploy, and orchestrate autonomous AI agents." />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+      </head>
+      <body>
+        <div className="app-shell">
+          {/* Sidebar */}
+          <aside className="sidebar">
+            {/* Brand */}
+            <div style={{ padding: '14px 16px 10px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg,#7c3aed,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Zap size={14} color="#fff" />
+              </div>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: 13, color: 'var(--text)' }}>AgentSwarp</div>
+                <div style={{ fontSize: 10, color: 'var(--text-subtle)' }}>v3 · GravityClaw</div>
+              </div>
+            </div>
 
-        <div className="relative z-10 flex h-screen w-full">
-          {children}
+            {/* Main nav */}
+            <div style={{ padding: '8px 0', flex: 1 }}>
+              <div className="nav-section">Workspace</div>
+              {NAV.map(({ label, href, icon: Icon }) => (
+                <Link key={href} href={href}>
+                  <div className={`nav-item ${pathname === href || (href !== '/' && pathname.startsWith(href)) ? 'active' : ''}`}>
+                    <Icon size={15} />
+                    {label}
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Bottom nav */}
+            <div style={{ padding: '0 0 8px', borderTop: '1px solid var(--border)' }}>
+              {BOTTOM_NAV.map(({ label, href, icon: Icon }) => (
+                <Link key={href} href={href}>
+                  <div className={`nav-item ${pathname === href ? 'active' : ''}`}>
+                    <Icon size={15} />
+                    {label}
+                  </div>
+                </Link>
+              ))}
+              <div className="nav-item" style={{ marginTop: 4, color: 'var(--text-muted)' }}>
+                <LogOut size={15} />
+                Sign out
+              </div>
+            </div>
+          </aside>
+
+          {/* Main area */}
+          <div className="main-area">
+            {/* Top bar */}
+            <div className="top-bar">
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--text-subtle)', fontSize: 12 }}>
+                <span>AgentSwarp</span>
+                <ChevronRight size={12} />
+                <span style={{ color: 'var(--text-muted)' }}>
+                  {pathname === '/' ? 'Home' :
+                    pathname.replace('/', '').charAt(0).toUpperCase() +
+                    pathname.replace('/', '').slice(1)}
+                </span>
+              </div>
+              <div style={{ flex: 1 }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span className="dot dot-green" />
+                <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>Engine online</span>
+              </div>
+            </div>
+
+            {/* Page content */}
+            <div className="page-content">
+              {children}
+            </div>
+          </div>
         </div>
       </body>
     </html>

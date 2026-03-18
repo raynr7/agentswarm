@@ -1,160 +1,88 @@
 'use client';
+import React, { useEffect, useState } from 'react';
+import { Bot, Wrench, Activity, Zap, ArrowRight, Clock, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
-import React, { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { BrainCircuit, Activity, Network, Code2, Zap, Settings, Command } from 'lucide-react';
-import Lenis from '@studio-freight/lenis';
-import dynamic from 'next/dynamic';
+interface StatCard { label: string; value: string; sub: string; color: string; }
+const STATS: StatCard[] = [
+  { label: 'Active Agents',       value: '0',       sub: 'Deploy your first agent', color: 'var(--accent-light)' },
+  { label: 'Tools Available',     value: '100+',    sub: 'Ready to invoke',          color: 'var(--cyan)' },
+  { label: 'Runs Today',          value: '0',       sub: 'No runs yet',              color: 'var(--green)' },
+  { label: 'MCP Connections',     value: '1',       sub: 'GravityClaw server active',color: 'var(--amber)' },
+];
 
-const SwarmVisualizer = dynamic(() => import('../components/visualizer/SwarmVisualizer'), {
-  ssr: false,
-});
+const QUICK: { label: string; desc: string; href: string; icon: React.ElementType }[] = [
+  { label: 'Open Studio',      desc: 'Chat with an agent or start a new run',   href: '/studio',    icon: Bot },
+  { label: 'Browse Tools',     desc: 'Explore all 100+ available integrations', href: '/tools',     icon: Wrench },
+  { label: 'New Workflow',     desc: 'Chain tools and agents into pipelines',   href: '/workflows', icon: Activity },
+  { label: 'Browser Automation', desc: 'Run Playwright tasks in real-time',    href: '/browser',   icon: Zap },
+];
 
-export default function Dashboard() {
-  const controls = useAnimation();
-
+export default function HomePage() {
+  const [time, setTime] = useState('');
   useEffect(() => {
-    // Smooth scroll setup (Lenis) - The Apple/Linear scroll feel
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    controls.start(i => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-    }));
-
-    return () => lenis.destroy();
-  }, [controls]);
+    const fmt = () => setTime(new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+    fmt();
+    const id = setInterval(fmt, 10000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <div className="flex w-full h-full p-4 gap-4">
-      
-      {/* Sleek Twin-Style Sidebar */}
-      <motion.aside 
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="w-64 glass-panel rounded-3xl flex flex-col justify-between overflow-hidden relative"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none" />
-        
-        <div className="p-6">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-indigo-600 flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.4)]">
-              <BrainCircuit className="w-5 h-5 text-white" />
-            </div>
-            <h1 className="font-bold text-xl tracking-tight text-white/90">AgentSwarp</h1>
-          </div>
-
-          <nav className="flex flex-col gap-2 relative z-10">
-            {[
-              { icon: Activity, label: 'Overview', active: true },
-              { icon: Network, label: 'Swarm Graph', active: false },
-              { icon: Code2, label: 'Design Engineer', active: false },
-              { icon: Zap, label: 'Automations', active: false },
-              { icon: Settings, label: 'Configuration', active: false }
-            ].map((item, i) => (
-              <button 
-                key={i}
-                className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 group
-                  ${item.active ? 'bg-white/10 text-white shadow-inner' : 'text-white/50 hover:bg-white/5 hover:text-white/90'}`}
-              >
-                <div className="relative">
-                  <item.icon className="w-5 h-5" />
-                  {item.active && <div className="absolute inset-0 bg-cyan-400 blur-md opacity-40 mix-blend-screen" />}
-                </div>
-                <span className="font-medium text-sm tracking-wide">{item.label}</span>
-              </button>
-            ))}
-          </nav>
+    <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      {/* Header */}
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ fontSize: 11, color: 'var(--text-subtle)', marginBottom: 4, fontFamily: 'monospace' }}>
+          {time} · Engine online
         </div>
+        <h1 style={{ fontSize: 22, fontWeight: 600, marginBottom: 4 }}>AgentSwarp Studio</h1>
+        <p style={{ color: 'var(--text-muted)', fontSize: 13 }}>
+          Your autonomous AI workspace. Build, run, and monitor intelligent agents.
+        </p>
+      </div>
 
-        <div className="p-4 border-t border-white/5 mx-2 mb-2">
-          <button className="w-full flex items-center justify-between px-4 py-3 rounded-2xl bg-[#111116] border border-white/5 hover:bg-[#1a1a24] transition-colors group">
-            <div className="flex items-center gap-3">
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="User" className="w-8 h-8 rounded-full bg-white/10" />
-              <div className="text-left">
-                <p className="text-[13px] font-semibold text-white/90">GravityClaw Engine</p>
-                <p className="text-[11px] text-white/40 group-hover:text-cyan-400 transition-colors">Admin Session</p>
+      {/* Stats */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 12, marginBottom: 28 }}>
+        {STATS.map(s => (
+          <div key={s.label} className="card" style={{ padding: '14px 16px' }}>
+            <div style={{ fontSize: 22, fontWeight: 700, color: s.color, fontFamily: 'monospace' }}>{s.value}</div>
+            <div style={{ fontSize: 12, fontWeight: 500, marginTop: 2 }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-subtle)', marginTop: 2 }}>{s.sub}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Quick actions */}
+      <h2 style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 10 }}>
+        Quick Start
+      </h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 10, marginBottom: 28 }}>
+        {QUICK.map(q => (
+          <Link key={q.href} href={q.href}>
+            <div className="card card-hover" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px' }}>
+              <div style={{ width: 36, height: 36, borderRadius: 8, background: 'var(--bg-elevated)', border: '1px solid var(--border-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <q.icon size={16} color="var(--accent-light)" />
               </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 500, fontSize: 13 }}>{q.label}</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 1 }}>{q.desc}</div>
+              </div>
+              <ArrowRight size={14} color="var(--text-subtle)" />
             </div>
-          </button>
-        </div>
-      </motion.aside>
+          </Link>
+        ))}
+      </div>
 
-      {/* Main Canvas / Dashboard Area */}
-      <main className="flex-1 rounded-3xl overflow-hidden relative flex flex-col">
-        {/* Top Floating Command Bar */}
-        <header className="absolute top-4 left-4 right-4 z-20 flex justify-between items-center pointer-events-none">
-          <div className="pointer-events-auto flex items-center gap-4 bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-full px-5 py-3 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-            <h2 className="text-sm font-semibold tracking-widest text-white/80 uppercase">Command Center</h2>
-            <div className="w-px h-4 bg-white/10" />
-            <div className="flex items-center gap-2 text-xs text-emerald-400">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              Swarm Autonomous
-            </div>
-          </div>
-          
-          <button className="pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/50 hover:text-white/90 hover:bg-white/10 transition-all">
-            <Command className="w-4 h-4" />
-            <span className="text-xs font-mono">⌘ K</span>
-          </button>
-        </header>
-
-        {/* Bento Grid Content */}
-        <div className="flex-1 overflow-y-auto pt-24 pb-8 px-4 sm:px-8 custom-scrollbar">
-          <div className="max-w-6xl mx-auto space-y-6">
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                { title: 'Active Agents', value: '12', glow: 'from-cyan-500/20 to-transparent' },
-                { title: 'Tasks Orchestrated', value: '4,892', glow: 'from-indigo-500/20 to-transparent' },
-                { title: 'Engine Uptime', value: '99.9%', glow: 'from-emerald-500/20 to-transparent' }
-              ].map((stat, i) => (
-                <motion.div 
-                  key={i}
-                  custom={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={controls}
-                  className="glass-panel p-6 rounded-3xl relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500 ease-out"
-                >
-                  <div className={`absolute -inset-x-0 -top-10 h-32 bg-gradient-to-b ${stat.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl`} />
-                  <p className="text-sm font-medium text-white/50 tracking-wider uppercase mb-2">{stat.title}</p>
-                  <p className="text-4xl font-light tracking-tight text-white/95">{stat.value}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div 
-              custom={4}
-              initial={{ opacity: 0, y: 30 }}
-              animate={controls}
-              className="w-full h-96 rounded-3xl relative overflow-hidden group"
-            >
-               <SwarmVisualizer />
-            </motion.div>
-
-          </div>
-        </div>
-      </main>
-
+      {/* Recent runs (empty state) */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+        <h2 style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          Recent Runs
+        </h2>
+        <Link href="/studio"><span style={{ fontSize: 12, color: 'var(--accent-light)' }}>New Run →</span></Link>
+      </div>
+      <div className="card" style={{ padding: '40px 16px', textAlign: 'center', color: 'var(--text-subtle)' }}>
+        <Clock size={28} style={{ margin: '0 auto 10px', opacity: 0.4 }} />
+        <div style={{ fontSize: 13 }}>No runs yet. Go to Studio to start your first agent run.</div>
+      </div>
     </div>
   );
 }
